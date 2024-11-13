@@ -1,0 +1,11 @@
+Creamoes en .gitignore
+
+Control click a algo para saber que pedo con eso
+
+//Creamos la carpeta models dentro de src
+
+//PARA LA TAREA
+Ir al repo. Descargamos el zip, lo abrimos, lo extraemos
+nos vamos a la carpeta y lo que dice app lo copeamos y pegamos al 
+mismo nivel de api
+Hacemos el repositorio de eso y lo subimos.
