@@ -1,15 +1,9 @@
 import { Schema, model } from "mongoose";
+import { IUsers } from "../GlobalTypes";
 
 //creamos interface, Es como describir al objeto, una descripcion dle mismo
 
-interface IUsers {
-    //por buena practica, la I va siamepre
-    name:string;
-    email:string;
-    lastNames:string;
-    password:string;
-    rol: "administrator" | "client";
-}
+
 
 const UserSchema = new Schema<IUsers>({
     name:{
