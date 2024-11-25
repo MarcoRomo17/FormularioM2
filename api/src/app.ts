@@ -1,5 +1,7 @@
 import express, { Application, Response, Request } from "express";
 import cors from "cors";
+import { registerUsers, singin } from "./controllers/UserController";
+
 
 
 const app:Application = express();
@@ -12,6 +14,8 @@ app.use(express.urlencoded({extended: true}))//Son para las peticiones. Permite 
 app.get("/", (_req: Request,res: Response)=>{
     res.send("Hola desde mi servidor con TS")
 })
+app.post('/users/create', registerUsers)
 
+app.get('/users/login', singin)
 
 export default app;

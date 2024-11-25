@@ -1,5 +1,6 @@
 interface IUsers {
     //por buena practica, la I va siamepre
+    _id:string;
     name:string;
     email:string;
     lastNames:string;
