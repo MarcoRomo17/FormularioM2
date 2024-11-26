@@ -63,18 +63,20 @@ export const singin= async (req:Request, res: Response):Promise<any>=>{
     try {
         const user = await UserModel.findOne({email:req.body.email, password:req.body.password})
         
-       if(user){
-        const token2 = jwt.sign(JSON.stringify(user),"pocoyo");
-        return res.status(200).json({msg: "Sesion iniciada con exito", token2})
-
-       }else{
-        return res.status(500).json({
-            msg:"No hay coincidencias en el sistema"
-        })
-       }
+        if(!user){
+            return res.status(400).json({
+                msg:"No hay coincidencias en el sistema"
+            })
+        }
 
 
-    } catch (error) {
+        const token = jwt.sign(JSON.stringify(user),"pocoyo");
+        return res.status(200).json({msg: "Sesion iniciada con exito", token})
+
+    
+
+
+    }  catch (error) {
         console.log(error);
         return res.status(500).json({
             msg:"Hubo un error al iniciar sesion"
