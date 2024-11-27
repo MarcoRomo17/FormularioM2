@@ -54,6 +54,7 @@ export const registerUsers= async (req:Request, res: Response): Promise<any>=>{
     }
 }
 
+
 export const singin= async (req:Request, res: Response):Promise<any>=>{
 
     //correo y contrseña
@@ -71,7 +72,7 @@ export const singin= async (req:Request, res: Response):Promise<any>=>{
 
 
         const token = jwt.sign(JSON.stringify(user),"pocoyo");
-        return res.status(200).json({msg: "Sesion iniciada con exito", token})
+        return res.status(200).json({msg: "Sesion iniciada con exito", token,user})
 
     
 

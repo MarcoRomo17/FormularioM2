@@ -1,10 +1,11 @@
 import { useState } from "react";
 import { Button, Card, Col, Container, Form, Row } from "react-bootstrap";
 import axios from "axios";
-
+import { useNavigate } from "react-router-dom";
 
 const App = () => {
   const [data, setData] = useState({});
+  const navigate = useNavigate();
 
   const onChange = (e) => {
     e.preventDefault();
@@ -16,8 +17,12 @@ const App = () => {
   const onSubmit = async () => {
     //Peticion a la DB
     try {
-      await axios.post("http://localhost:4000/users/login", data)
-     alert("Si estas registrado juaz juaz XDXDXD")
+     const res= await axios.post("http://localhost:4000/users/login", data)
+    const user = res.data;
+    user.logined= true;
+    localStorage.user= JSON.stringify(user);
+     //alert("Si estas registrado juaz juaz XDXDXD")
+    navigate("/list-q")
   } catch (error) {
       alert("No estas registrado", error)
       console.log(error)

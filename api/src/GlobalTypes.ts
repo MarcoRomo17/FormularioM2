@@ -24,7 +24,6 @@ export interface IQuestionnaire  {
     title: string;
     description: string;
     userID: Schema.Types.ObjectId | string
-
 }
 
 export interface IQuestion{
