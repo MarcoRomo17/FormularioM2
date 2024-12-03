@@ -19,15 +19,24 @@ const App = () => {
     try {
      const res= await axios.post("http://localhost:4000/users/login", data)
     const user = res.data;
+   
     user.logined= true;
     localStorage.user= JSON.stringify(user);
+    console.log( user,'soy lo que hay en user y soy un', typeof user)
      //alert("Si estas registrado juaz juaz XDXDXD")
+    localStorage.id = user.token
+    console.log( localStorage.id ,'soy lo que hay en localstorage.id y soy un', typeof localStorage.id )
+
+    
     navigate("/list-q")
+    
+    
   } catch (error) {
       alert("No estas registrado", error)
       console.log(error)
   }
   }
+ 
 
   return (
     <Container className="mt-3">

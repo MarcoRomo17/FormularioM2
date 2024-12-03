@@ -1,6 +1,7 @@
 import express, { Application, Response, Request } from "express";
 import cors from "cors";
 import { registerUsers, singin } from "./controllers/UserController";
+import { registrarCuestionarios } from "./controllers/QuestionnairesController";
 
 
 
@@ -17,5 +18,7 @@ app.get("/", (_req: Request,res: Response)=>{
 app.post('/users/create', registerUsers)
 
 app.post('/users/login', singin)
+
+app.post('/questions/create', registrarCuestionarios)
 
 export default app;

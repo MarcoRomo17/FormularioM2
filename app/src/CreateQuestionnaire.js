@@ -1,12 +1,14 @@
 import React, { useState } from 'react'
 import { Card, Container, Form, Row, Col, Button, InputGroup, CloseButton, Tooltip, OverlayTrigger } from 'react-bootstrap'
 import { AnwerQuestionnaire } from './components/AnwerQuestionnaire';
+import axios from "axios";
 
 export const CreateQuestionnaire = () => {
 
     const [showQuestionnaire, setShowQuestionnaire] = useState(false);
 
     const [createQuestionnaire, setCreateQuestionnaire] = useState({
+        userID:"",
         title: "Cuestionario vacio",
         description: "Descripcion simple",
         questions: [
@@ -23,6 +25,12 @@ export const CreateQuestionnaire = () => {
         e.preventDefault();
         const data = createQuestionnaire;
         data.title = e.target.value;
+        setCreateQuestionnaire({ ...data })
+    };
+    const onChangeDescription = (e) => {
+        e.preventDefault();
+        const data = createQuestionnaire;
+        data.description = e.target.value;
         setCreateQuestionnaire({ ...data })
     };
 
@@ -60,8 +68,17 @@ export const CreateQuestionnaire = () => {
         setCreateQuestionnaire({ ...data });
     }
 
-    const sendData = () => {
-        console.log(createQuestionnaire);
+    const sendData = async () => {
+       try {
+            createQuestionnaire.userID =localStorage.id
+            
+             await axios.post("http://localhost:4000/questions/create", createQuestionnaire)
+           alert("Cuestionario creado con exito")
+         } catch (error) {
+             alert("Algo salio mal", error)
+             console.log(error)
+         }
+
     }
 
     const onChangeOptionTitle = (e,iq,io)=>{
@@ -75,6 +92,8 @@ export const CreateQuestionnaire = () => {
                 <Card.Body>
                     <Card.Title>{createQuestionnaire.title}</Card.Title>
                     <Form.Control placeholder='Cambia el nombre de tu cuestionario' name="title" onChange={onChangeTitle} />
+                    <Form.Control placeholder='Ingresa la descripcion' name="description" onChange={onChangeDescription} />
+
                 </Card.Body>
             </Card>
             {
