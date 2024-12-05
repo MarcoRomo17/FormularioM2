@@ -1,8 +1,8 @@
 import { Schema, model } from "mongoose";
-import { IQuestionnaire } from "../GlobalTypes";
+import { IQuestionnaires } from "../GlobalTypes";
 
 
-const QuestionnaireSchema = new Schema<IQuestionnaire>({
+const QuestionnaireSchema = new Schema<IQuestionnaires>({
     title:{
         type: String,
         required: true

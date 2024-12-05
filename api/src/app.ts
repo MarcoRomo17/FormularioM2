@@ -1,7 +1,7 @@
 import express, { Application, Response, Request } from "express";
 import cors from "cors";
 import { registerUsers, singin } from "./controllers/UserController";
-import { registrarCuestionarios } from "./controllers/QuestionnairesController";
+import { createQuizz, getMetrics, getQuestionnaries } from "./controllers/QuestionnairesController";
 
 
 
@@ -19,6 +19,9 @@ app.post('/users/create', registerUsers)
 
 app.post('/users/login', singin)
 
-app.post('/questions/create', registrarCuestionarios)
+//app.post('/questions/create', registrarCuestionarios)
+app.post("/questionnaire/create", createQuizz)
+app.get("/questionnaires/get-metrics", getMetrics)
+app.get("/questionnaires/get-all", getQuestionnaries)
 
 export default app;

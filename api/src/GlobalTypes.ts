@@ -20,7 +20,7 @@ export interface IOptions {
     questionID: Schema.Types.ObjectId | string
 }
 
-export interface IQuestionnaire  {
+export interface IQuestionnaires  {
     title: string;
     description: string;
     userID: Schema.Types.ObjectId | string

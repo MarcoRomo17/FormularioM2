@@ -5,32 +5,28 @@ import axios from "axios";
 
 export const CreateQuestionnaire = () => {
 
+
     const [showQuestionnaire, setShowQuestionnaire] = useState(false);
 
+    const defaultQuestion={
+        title:"Pregunta sin titulo",
+        type:"radio",
+        options:["opcion1"],
+        isMandatory: false
+    }
     const [createQuestionnaire, setCreateQuestionnaire] = useState({
-        userID:"",
         title: "Cuestionario vacio",
         description: "Descripcion simple",
         questions: [
-            {
-                title: "Pregunta sin titulo",
-                type: "radio",
-                options: ["Opción 1"],
-                isMandatory: false,
-            }
-        ]
+defaultQuestion
+        ],
+        userId:JSON.parse(localStorage.user)._id
     });
 
     const onChangeTitle = (e) => {
         e.preventDefault();
         const data = createQuestionnaire;
         data.title = e.target.value;
-        setCreateQuestionnaire({ ...data })
-    };
-    const onChangeDescription = (e) => {
-        e.preventDefault();
-        const data = createQuestionnaire;
-        data.description = e.target.value;
         setCreateQuestionnaire({ ...data })
     };
 
@@ -47,11 +43,7 @@ export const CreateQuestionnaire = () => {
 
     const addQuestion = () => {
         const data = createQuestionnaire;
-        data.questions.push({
-            title: "Pregunta sin titulo",
-            type: "radio",
-            options: ["Opción 1"]
-        })
+        data.questions.push(defaultQuestion)
         setCreateQuestionnaire({ ...data })
     };
 
@@ -69,22 +61,19 @@ export const CreateQuestionnaire = () => {
     }
 
     const sendData = async () => {
-       try {
-            createQuestionnaire.userID =localStorage.id
-            
-             await axios.post("http://localhost:4000/questions/create", createQuestionnaire)
-           alert("Cuestionario creado con exito")
-         } catch (error) {
-             alert("Algo salio mal", error)
-             console.log(error)
-         }
-
+        try {
+            console.log(createQuestionnaire)
+            await axios.post("http://localhost:4000/questionnaire/create", createQuestionnaire)
+            alert("Cuestionario creado con exito")
+        } catch (error) {
+            alert("Todos tienen 10 por sonso yo >:C")
+        }
     }
 
-    const onChangeOptionTitle = (e,iq,io)=>{
+    const onChangeOptionTitle = (e, iq, io) => {
         const data = createQuestionnaire;
         data.questions[iq].options[io] = e.target.value;
-        setCreateQuestionnaire({...data})
+        setCreateQuestionnaire({ ...data })
     }
     return (
         <Container>
@@ -92,8 +81,6 @@ export const CreateQuestionnaire = () => {
                 <Card.Body>
                     <Card.Title>{createQuestionnaire.title}</Card.Title>
                     <Form.Control placeholder='Cambia el nombre de tu cuestionario' name="title" onChange={onChangeTitle} />
-                    <Form.Control placeholder='Ingresa la descripcion' name="description" onChange={onChangeDescription} />
-
                 </Card.Body>
             </Card>
             {
@@ -142,9 +129,9 @@ export const CreateQuestionnaire = () => {
                                                 q.options.map((o, io) => (
                                                     <li className='mb-3'>
                                                         <InputGroup>
-                                                            <Form.Control 
+                                                            <Form.Control
                                                                 value={o}
-                                                                onChange={(e)=>onChangeOptionTitle(e,i,io)}
+                                                                onChange={(e) => onChangeOptionTitle(e, i, io)}
                                                             />
                                                             {
                                                                 q.options.length != 1 && (
@@ -180,10 +167,10 @@ export const CreateQuestionnaire = () => {
                     </Row>
                 </Col>
             </Row>
-            <Button onClick={()=>setShowQuestionnaire(true)}>Vista previa</Button>
+            <Button onClick={() => setShowQuestionnaire(true)}>Vista previa</Button>
             {
                 showQuestionnaire && (
-                    <AnwerQuestionnaire questionnaire={createQuestionnaire}/>
+                    <AnwerQuestionnaire questionnaire={createQuestionnaire} />
                 )
             }
         </Container>
